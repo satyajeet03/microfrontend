@@ -1,0 +1,63 @@
+{
+  "modules": [
+    {
+      "id": "products",
+      "displayName": "Products",
+      "routePath": "/products",
+      "matchMode": "prefix",
+      "remoteName": "products",
+      "entry": "http://localhost:4201/remoteEntry.js",
+      "exposedModule": "Module",
+      "source": "workspace",
+      "enabled": true,
+      "stateCodes": ["MH", "UP", "DL"]
+    },
+    {
+      "id": "complaints",
+      "displayName": "Complaints",
+      "routePath": "/complaints",
+      "matchMode": "prefix",
+      "remoteName": "complaints",
+      "entry": "http://localhost:4202/remoteEntry.js",
+      "exposedModule": "Module",
+      "source": "workspace",
+      "enabled": true,
+      "stateCodes": ["MH", "KA"]
+    },
+    {
+      "id": "state-analytics",
+      "displayName": "State Analytics",
+      "routePath": "/state-analytics",
+      "remoteName": "stateAnalytics",
+      "entry": "https://state.example.gov/analytics/remoteEntry.js",
+      "exposedModule": "Module",
+      "source": "external",
+      "enabled": false,
+      "stateCodes": ["RJ"]
+    },
+    {
+      "id": "fir-services",
+      "displayName": "FIR Services",
+      "routePath": "/fir-services",
+      "matchMode": "prefix",
+      "remoteName": "firServices",
+      "entry": "https://state.example.gov/fir/remoteEntry.js",
+      "exposedModule": "Module",
+      "source": "external",
+      "enabled": false,
+      "stateCodes": ["UP"]
+    },
+    {
+      "id": "general-diary",
+      "displayName": "General Diary",
+      "routePath": "/general-diary",
+      "matchMode": "prefix",
+      "remoteName": "products",
+      "entry": "http://localhost:4201/remoteEntry.js",
+      "exposedModule": "Module",
+      "source": "workspace",
+      "enabled": true,
+      "stateCodes": []
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "name": "complaints",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "complaints",
+    "sourceRoot": "apps/complaints/src",
+    "targets": {
+      "build": {
+        "executor": "@nx/webpack:webpack",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "defaultConfiguration": "production",
+        "options": {
+          "compiler": "babel",
+          "outputPath": "dist/apps/complaints",
+          "index": "apps/complaints/src/index.html",
+          "baseHref": "/",
+          "main": "apps/complaints/src/main.ts",
+          "tsConfig": "apps/complaints/tsconfig.app.json",
+          "assets": [
+            "apps/complaints/src/favicon.ico",
+            "apps/complaints/src/assets"
+          ],
+          "styles": [
+            "apps/complaints/src/styles.css"
+          ],
+          "scripts": [],
+          "webpackConfig": "apps/complaints/webpack.config.ts"
+        },
+        "configurations": {
+          "development": {
+            "extractLicenses": false,
+            "optimization": false,
+            "sourceMap": true,
+            "vendorChunk": true
+          },
+          "production": {
+            "fileReplacements": [
+              {
+                "replace": "apps/complaints/src/environments/environment.ts",
+                "with": "apps/complaints/src/environments/environment.prod.ts"
+              }
+            ],
+            "optimization": true,
+            "outputHashing": "all",
+            "sourceMap": false,
+            "namedChunks": false,
+            "extractLicenses": true,
+            "vendorChunk": false
+          }
+        },
+        "dependsOn": [
+          "^build",
+          "typecheck"
+        ]
+      },
+      "serve": {
+        "executor": "@nx/react:module-federation-dev-server",
+        "defaultConfiguration": "development",
+        "options": {
+          "buildTarget": "complaints:build",
+          "hmr": true,
+          "port": 4202
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "complaints:build:development"
+          },
+          "production": {
+            "buildTarget": "complaints:build:production",
+            "hmr": false
+          }
+        },
+        "dependsOn": [
+          "typecheck"
+        ]
+      },
+      "serve-static": {
+        "executor": "@nx/react:module-federation-static-server",
+        "defaultConfiguration": "production",
+        "options": {
+          "serveTarget": "complaints:serve"
+        },
+        "configurations": {
+          "development": {
+            "serveTarget": "complaints:serve:development"
+          },
+          "production": {
+            "serveTarget": "complaints:serve:production"
+          }
+        }
+      }
+    }
+  },
+  "exports": {
+    "./Module": {
+      "null": "./src/remote-entry.ts",
+      "types": "./src/remote-entry.ts",
+      "import": "./src/remote-entry.ts",
+      "default": "./src/remote-entry.ts"
+    }
+  },
+  "types": "./src/remote-entry.ts"
+}
