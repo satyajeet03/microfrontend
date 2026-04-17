@@ -132,6 +132,70 @@ npm run validate:module-registry
 
 5. Verify route loads in shell.
 
+## 4A) Inject a module from another repo (External Remote)
+
+This is the production pattern for “state adds a new module without changing shell code”.
+
+### External remote repo requirements
+
+- Must be a Module Federation **remote** build that produces a reachable `remoteEntry.js`
+- Must expose `./Module` (or `Module`) as configured in shell registry
+- Must share compatible React versions with shell (as singletons in MF config)
+
+### Minimal example (new repo)
+
+Create a new repo folder anywhere (outside this Nx workspace is fine):
+
+```bash
+mkdir citizen-general-diary-remote
+cd citizen-general-diary-remote
+npm init -y
+npm i react react-dom
+npm i -D webpack webpack-cli webpack-dev-server babel-loader @babel/core @babel/preset-react @babel/preset-typescript typescript html-webpack-plugin
+```
+
+Add Module Federation remote config with:
+- `name: "generalDiary"`
+- `exposes: { "./Module": "./src/Module.tsx" }`
+- output file `remoteEntry.js`
+
+Build + host it so `https://.../remoteEntry.js` is accessible.
+
+### Shell injection step (only config change)
+
+In this repo, add a registry row:
+
+```json
+{
+  "id": "general-diary",
+  "displayName": "General Diary",
+  "routePath": "/general-diary",
+  "matchMode": "prefix",
+  "remoteName": "generalDiary",
+  "entry": "https://<external-domain>/remoteEntry.js",
+  "exposedModule": "Module",
+  "source": "external",
+  "enabled": true,
+  "stateCodes": []
+}
+```
+
+Then run:
+
+```bash
+npm run validate:module-registry
+```
+
+Deploy shell (or restart in dev). The route becomes available immediately:
+- `/general-diary`
+
+### Common failure causes
+
+- `remoteName` mismatch (must match remote’s MF `name`)
+- `exposedModule` mismatch (must match remote’s MF `exposes`)
+- `entry` not reachable from shell (DNS/SSL/firewall)
+- CORS/CSP not allowing remote asset loads
+
 ## 5) Pull Request Requirements (Module Team)
 
 - Feature implementation complete.

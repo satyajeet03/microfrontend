@@ -21,6 +21,20 @@ export default composePlugins(
   withModuleFederation(config, { dts: false }),
   (webpackConfig) => ({
     ...webpackConfig,
+    watchOptions: {
+      ...(webpackConfig.watchOptions ?? {}),
+      // Prevent "EMFILE: too many open files, watch" on macOS by using polling.
+      // This only affects dev watching; production builds are not impacted.
+      poll: 1000,
+      aggregateTimeout: 200,
+      ignored: [
+        '**/node_modules/**',
+        '**/.nx/**',
+        '**/dist/**',
+        '**/out-tsc/**',
+        '**/.git/**',
+      ],
+    },
     devServer: {
       ...webpackConfig.devServer,
       historyApiFallback: {

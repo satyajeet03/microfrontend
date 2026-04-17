@@ -7,10 +7,10 @@
       "matchMode": "prefix",
       "remoteName": "products",
       "entry": "http://localhost:4201/remoteEntry.js",
-      "exposedModule": "Module",
+      "exposedModule": "./Module",
       "source": "workspace",
       "enabled": true,
-      "stateCodes": ["MH", "UP", "DL"]
+      "stateCodes": []
     },
     {
       "id": "complaints",
@@ -19,18 +19,31 @@
       "matchMode": "prefix",
       "remoteName": "complaints",
       "entry": "http://localhost:4202/remoteEntry.js",
-      "exposedModule": "Module",
+      "exposedModule": "./Module",
       "source": "workspace",
       "enabled": true,
-      "stateCodes": ["MH", "KA"]
+      "stateCodes": []
+    },
+    {
+      "id": "general-diary-external",
+      "displayName": "General Diary (External)",
+      "routePath": "/general-diary-external",
+      "matchMode": "prefix",
+      "remoteName": "generalDiary",
+      "entry": "http://localhost:4300/remoteEntry.js",
+      "exposedModule": "./Module",
+      "source": "external",
+      "enabled": true,
+      "stateCodes": []
     },
     {
       "id": "state-analytics",
       "displayName": "State Analytics",
       "routePath": "/state-analytics",
+      "matchMode": "prefix",
       "remoteName": "stateAnalytics",
       "entry": "https://state.example.gov/analytics/remoteEntry.js",
-      "exposedModule": "Module",
+      "exposedModule": "./Module",
       "source": "external",
       "enabled": false,
       "stateCodes": ["RJ"]
@@ -42,22 +55,10 @@
       "matchMode": "prefix",
       "remoteName": "firServices",
       "entry": "https://state.example.gov/fir/remoteEntry.js",
-      "exposedModule": "Module",
+      "exposedModule": "./Module",
       "source": "external",
       "enabled": false,
       "stateCodes": ["UP"]
-    },
-    {
-      "id": "general-diary",
-      "displayName": "General Diary",
-      "routePath": "/general-diary",
-      "matchMode": "prefix",
-      "remoteName": "products",
-      "entry": "http://localhost:4201/remoteEntry.js",
-      "exposedModule": "Module",
-      "source": "workspace",
-      "enabled": true,
-      "stateCodes": []
     }
   ]
 }

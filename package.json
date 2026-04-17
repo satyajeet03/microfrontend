@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve shell",
-    "start:shell": "nx serve shell",
+     "start:all": "node tools/start-all.js",
+     "start:shell": "nx serve shell",
     "start:products": "nx serve products",
     "build": "nx run-many -t build --projects=shell,products",
     "validate:module-registry": "node tools/validate-module-registry.mjs",
@@ -67,6 +68,9 @@
     "webpack-cli": "^5.1.4"
   },
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "shared-ui",
+    "packages",
+    "packages/*"
   ]
 }

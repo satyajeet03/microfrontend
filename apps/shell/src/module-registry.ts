@@ -1,4 +1,4 @@
-import { init } from '@module-federation/enhanced/runtime';
+import { init, registerRemotes } from '@module-federation/enhanced/runtime';
 
 export type PortalModuleConfig = {
   id: string;
@@ -121,15 +121,32 @@ function initializeFederationRuntime(modules: PortalModuleConfig[]) {
     return;
   }
 
-  init({
-    name: 'shell',
-    remotes: modules
-      .filter((module) => module.enabled)
-      .map((module) => ({
-        name: module.remoteName,
-        entry: module.entry,
-      })),
-  });
+ init({
+  name: 'shell',
+  remotes: [], // start empty
+});
 
   runtimeInitialized = true;
+}
+const registeredRemotes = new Set<string>();
+
+export function ensureRemoteRegistered(module: PortalModuleConfig) {
+  if (registeredRemotes.has(module.remoteName)) {
+    return;
+  }
+
+  registerRemotes([
+    {
+      name: module.remoteName,
+      entry: module.entry,
+    },
+  ]);
+
+  registeredRemotes.add(module.remoteName);
+
+  console.log(
+    '%c[Shell] 🔌 Remote registered:',
+    'color:#22c55e',
+    module.remoteName
+  );
 }

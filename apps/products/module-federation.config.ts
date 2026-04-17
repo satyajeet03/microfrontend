@@ -1,13 +1,29 @@
 import { ModuleFederationConfig } from '@nx/module-federation';
 
 const config: ModuleFederationConfig = {
-  name: 'products',
+  name: 'products',                 
   exposes: {
-    './Module': './src/remote-entry.ts',
+    './Module': './src/app/app.tsx',   
   },
-};
+  shared: (lib, config) => {
+  if (['react', 'react-dom'].includes(lib)) {
+    return {
+      ...config,
+      singleton: true,
+      strictVersion: true,
+      requiredVersion: 'auto',
+    };
+  }
 
-/**
- * Nx requires a default export of the config to allow correct resolution of the module federation graph.
- **/
+  if (lib.startsWith('@your-org/')) {
+    return {
+      ...config,
+      singleton: true,
+    };
+  }
+
+  return config;
+}
+};
+ 
 export default config;

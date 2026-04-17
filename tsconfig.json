@@ -11,6 +11,9 @@
     },
     {
       "path": "./apps/complaints"
+    },
+    {
+      "path": "./packages/shared-ui"
     }
   ]
 }
