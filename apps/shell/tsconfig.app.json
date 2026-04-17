@@ -39,6 +39,9 @@
   ],
   "references": [
     {
+      "path": "../../packages/shared-ui/tsconfig.lib.json"
+    },
+    {
       "path": "../complaints/tsconfig.app.json"
     },
     {

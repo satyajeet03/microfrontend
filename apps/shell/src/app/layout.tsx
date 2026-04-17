@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { AppButton } from '@poc/shared-ui';
 
 type HeaderProps = {
   title: string;
@@ -10,6 +11,14 @@ export function Header({ title, subtitle }: HeaderProps) {
     <header>
       <h1>{title}</h1>
       {subtitle ? <p>{subtitle}</p> : null}
+      <div style={{ marginTop: 12 }}>
+        <AppButton
+          variant="secondary"
+          onClick={() => window.alert('Shared-UI button from @poc/shared-ui')}
+        >
+          Shared UI Button
+        </AppButton>
+      </div>
     </header>
   );
 }

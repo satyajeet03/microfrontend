@@ -14,7 +14,26 @@ const config: ModuleFederationConfig = {
    * declare module 'my-external-remote';
    *
    */
- remotes: [],
+  remotes: [],
+  shared: (lib, defaultConfig) => {
+    if (lib === 'react' || lib === 'react-dom') {
+      return {
+        ...defaultConfig,
+        singleton: true,
+        strictVersion: true,
+        requiredVersion: 'auto',
+      };
+    }
+
+    if (lib === '@poc/shared-ui') {
+      return {
+        ...defaultConfig,
+        singleton: true,
+      };
+    }
+
+    return defaultConfig;
+  },
 };
 
 /**

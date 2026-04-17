@@ -6,24 +6,24 @@ const config: ModuleFederationConfig = {
     './Module': './src/app/app.tsx',   
   },
   shared: (lib, config) => {
-  if (['react', 'react-dom'].includes(lib)) {
-    return {
-      ...config,
-      singleton: true,
-      strictVersion: true,
-      requiredVersion: 'auto',
-    };
-  }
+    if (['react', 'react-dom'].includes(lib)) {
+      return {
+        ...config,
+        singleton: true,
+        strictVersion: true,
+        requiredVersion: 'auto',
+      };
+    }
 
-  if (lib.startsWith('@your-org/')) {
-    return {
-      ...config,
-      singleton: true,
-    };
-  }
+    if (lib === '@poc/shared-ui') {
+      return {
+        ...config,
+        singleton: true,
+      };
+    }
 
-  return config;
-}
+    return config;
+  },
 };
  
 export default config;

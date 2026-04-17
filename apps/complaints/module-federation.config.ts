@@ -17,7 +17,7 @@ const config: ModuleFederationConfig = {
       };
     }
  
-    if (lib.startsWith('@your-org/')) {
+    if (lib === '@poc/shared-ui') {
       return {
         ...defaultConfig,
         singleton: true,
